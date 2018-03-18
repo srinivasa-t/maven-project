@@ -28,14 +28,14 @@ pipeline {
                 stage('Deploy to Staging') {
                     steps {
                         echo "${params.tomcat_staging}"
-                        sh "cp **/target/*.war C:/Downloads/apache-tomcat-9.0.6/webapps/"
+                        cmd "cp **/target/*.war C:/Downloads/apache-tomcat-9.0.6/webapps/"
                     }
                 }
                 stage('Deploy to Production') {
                     steps {
                         echo "${params.tomcat_prod}"
                        
-                        sh "cp **/target/*.war C:/Downloads/Production-Tomcat/webapps/"
+                        cmd "cp **/target/*.war C:/Downloads/Production-Tomcat/webapps/"
                     }
                   
                 }
