@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     parameters {
-        string{name: 'tomcat_staging', defaultValue: '35.231.13.157', description:'Tomcat Staging IP'}
-        string{name: 'tomcat_prod', defaultValue: '35.196.174.31', description:'Tomcat Production IP'}
+        string(name: 'tomcat_staging', defaultValue: '35.231.13.157', description:'Tomcat Staging IP')
+        string(name: 'tomcat_prod', defaultValue: '35.196.174.31', description:'Tomcat Production IP')
     }
 
     triggers {
@@ -27,11 +27,13 @@ pipeline {
             parallel {
                 stage('Deploy to Staging') {
                     steps {
+                        echo ${params.tomcat_staging}
                         sh "cp **/target/*.war C:\\Downloads\\apache-tomcat-9.0.6\\webapps\\"
                     }
                 }
                 stage('Deploy to Production') {
                     steps {
+                        echo ${params.tomcat_prod}
                         timeout(time: 5, unit: 'DAYS') {
                             input message: 'Approve Production Deployment?'
                         }
