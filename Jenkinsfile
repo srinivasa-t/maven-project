@@ -27,7 +27,7 @@ pipeline {
             parallel {
                 stage('Deploy to Staging') {
                     steps {
-                        build job:  'Deploy-to-staging'
+                        sh "cp **/target/*.war C:\\Downloads\\apache-tomcat-9.0.6\\webapps\\"
                     }
                 }
                 stage('Deploy to Production') {
@@ -35,7 +35,7 @@ pipeline {
                         timeout(time: 5, unit: 'DAYS') {
                             input message: 'Approve Production Deployment?'
                         }
-                        build job: 'deploy-to-prod'
+                        sh "cp **/target/*.war C:\\Downloads\\Production-Tomcat\\webapps\\"
                     }
                     post {
                             success {
