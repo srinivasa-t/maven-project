@@ -28,25 +28,16 @@ pipeline {
                 stage('Deploy to Staging') {
                     steps {
                         echo "${params.tomcat_staging}"
-                        sh "cp **/target/*.war C:\\Downloads\\apache-tomcat-9.0.6\\webapps\\"
+                        sh "cp **/target/*.war C:/Downloads/apache-tomcat-9.0.6/webapps/"
                     }
                 }
                 stage('Deploy to Production') {
                     steps {
                         echo "${params.tomcat_prod}"
-                        timeout(time: 5, unit: 'DAYS') {
-                            input message: 'Approve Production Deployment?'
-                        }
-                        sh "cp **/target/*.war C:\\Downloads\\Production-Tomcat\\webapps\\"
+                       
+                        sh "cp **/target/*.war C:/Downloads/Production-Tomcat/webapps/"
                     }
-                    post {
-                            success {
-                                echo 'Code deployed to production.'
-                            }
-                            failure {
-                                echo 'Deployment to Production failed.'    
-                            }
-                    }
+                  
                 }
             }
         }
